@@ -14,3 +14,5 @@ Este repositorio contiene una colección de mini proyectos en Python. Son juegos
 1. Clona este repositorio:
    ```bash
    git clone https://github.com/J0seAntonio09/Proyectos-python
+
+¡Gracias por visitar y explorar mis proyectos! 🎉
