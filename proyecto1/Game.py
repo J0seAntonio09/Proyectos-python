@@ -6,8 +6,125 @@ root.title("Juego de Piedra, Papel o Tijera.")
 
 clicks = 0
 
+def Versus(opcion,comp_resultado):
+    global resultado_texto, opcion_texto
+    #Empates:
+    if  opcion == 0 and comp_resultado == 0:
+        resultado_texto = """
+            _______           _______
+        ---'   ____)         (____   '---
+              (_____)       (_____)
+              (_____)       (_____)
+              (____)         (____)
+        ---.__(___)           (___)__.---
+
+                  Roca VS Roca
+              """
+        opcion_texto = "¡Empate!"
+    elif opcion == 1 and comp_resultado == 1:
+        resultado_texto = """
+             _______                     _______
+        ---'    ____)____           ____(____   '----
+                   ______)         (______
+                  _______)         (_______
+                 _______)           (_______
+        ---.__________)                (_________.---
+                        Papel VS Papel
+              """
+        opcion_texto = "¡Empate!"
+       
+    elif  opcion == 2 and comp_resultado == 2:
+        resultado_texto ="""
+            _______                      _______
+        ---'   ____)____            ____(____   '---
+                  ______)          (______
+               __________)        (__________
+              (____)                    (____)
+        ---.__(___)                      (___)__.---
+                     Tijeras vs Tijeras
+              """
+        opcion_texto = "¡Empate!"
+    
+    #Variaciones:
+    #Piedra:
+    elif opcion == 0 and comp_resultado == 1:
+        resultado_texto = """
+            _______                 _______
+        ---'   ____)           ____(____   '----
+              (_____)         (______
+              (_____)         (_______
+              (____)           (_______
+        ---.__(___)                (_________.---  
+              
+                     Roca vs Papel
+              """
+        opcion_texto = "Perdiste :("
+    
+    elif  opcion == 0 and comp_resultado == 2:
+        resultado_texto ="""
+            _______                 _______
+        ---'   ____)           ____(____   '---
+              (_____)         (______
+              (_____)        (__________
+              (____)               (____)
+        ---.__(___)                 (___)__.---
+                    Roca vs tijera
+              """
+        opcion_texto = "Ganaste :)"
+    #Papel:
+    elif opcion == 1 and comp_resultado == 0:
+        resultado_texto ="""
+             _______               _______
+        ---'    ____)____         (____   '---
+                   ______)       (_____)
+                  _______)       (_____) 
+                 _______)         (____)
+        ---.__________)            (___)__.---
+                    Papel vs Roca
+              """
+        opcion_texto = "Ganaste :)"
+
+    elif opcion == 1 and comp_resultado == 2:
+        resultado_texto ="""
+             _______                     _______
+        ---'    ____)____           ____(____   '---
+                   ______)         (______
+                  _______)        (__________
+                 _______)               (____)
+        ---.__________)                   (___)__.---
+                        Papel vs Tijera
+              """
+        opcion_texto = "Perdiste :("
+    #Tijeras:   
+    elif opcion == 2 and comp_resultado == 0:
+        resultado_texto ="""
+            _______                       _______
+        ---'   ____)____                 (____   '---
+                  ______)               (_____)
+               __________)              (_____)
+              (____)                     (____)
+        ---.__(___)                       (___)__.---
+                        Tijera vs Piedra
+              """
+        opcion_texto = "Perdiste :("
+    
+    elif opcion == 2 and comp_resultado == 1:
+        resultado_texto = """
+            _______                       _______
+        ---'   ____)____             ____(____   '----
+                  ______)           (______
+               __________)         (_______
+              (____)                  (_______
+        ---.__(___)                       (_________.---
+                        Tijera vs Papel
+              """
+        opcion_texto = "Ganaste :)"
+
+    etiqueta_resutado.config(text=resultado_texto)
+    etiqueta_txt.config(text=opcion_texto)
+    
 def Botones(opcion):
-    global resultado_texto, opcion_texto,clicks
+    global resultado_texto, opcion_texto,clicks,resultado_user
     if opcion == 0:
         resultado_texto = """
             _______
@@ -48,6 +165,7 @@ def Botones(opcion):
     boton_4.pack(pady=25)
     boton_3.pack(pady=25)
 
+    resultado_user = opcion
     clicks = 0
 
 def Continuar():
@@ -59,7 +177,13 @@ def Continuar():
     if clicks == 2:  # Si el usuario hace doble clic, continuar
         etiqueta_txt.config(text="¡Juego Continuado!") #Aquí puedes agregar lo que ocurra cuando el usuario da doble clic
         boton_4.forget()
+        boton_3.forget()
+        global resultado_user
+        comp_resultado = random.randint(0,2)
+        Versus(resultado_user,comp_resultado)
+        boton_4.pack(pady=25)
         clicks = 0  # Reiniciar contador después de continuar
+
     else:
         etiqueta_txt.config(text="Haz doble clic para continuar.")
         #print("Haz doble clic para continuar.")
